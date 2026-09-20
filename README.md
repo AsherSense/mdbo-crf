@@ -24,7 +24,9 @@ Node.js 24：`npm ci`、`npm run build`、`npm test`、`npm run dev`。
 
 当前Sites部署通过私有访问策略和平台可信身份头鉴别用户；此入口仅面向中央管理员。随访/终点裁定人员不能使用带有分组、手术及完整导出的管理员入口。
 
-迁移到Cloudflare Workers时：配置D1绑定DB；应用drizzle中的SQL迁移；入口为dist/server/index.js。必须在前端/API前配置可信身份认证，并在Worker内验证身份令牌和研究角色。`oai-authenticated-user-id`只在Sites网关内可信，公共Worker不得直接信任客户端传入同名头。未经配置不可直接公开部署。部署步骤及密钥应由GitHub Actions环境管理，不写入仓库。
+当前 Cloudflare Workers 部署使用 D1 云数据库，并必须在 Worker 上启用 Cloudflare Access（All traffic）。线上 Worker 只接受 Cloudflare 提供的可信 `ctx.access` 身份对象，页面和 API 均在身份检查后开放，不信任客户端自带身份头。先运行 `npm run cf:login` 和 `npm run cf:create-db`，将返回的数据库 ID 写入 `wrangler.jsonc`，然后执行 `npm run cf:migrate` 与 `npm run deploy`。在 Worker 的 Access 设置中配置只允许研究团队账号登录，部署后从未登录浏览器验证访问会被拒绝。源代码公开不代表患者数据公开；D1 数据不会进入 GitHub。
+
+不得在未启用 Access 的情况下录入任何患者信息。`drizzle/0005_purge_confirmed_test_data.sql` 会清空患者、记录、随机化及审计数据，仅适用于经确认的全新空库初始化；绝不可对已有正式数据的 D1 执行整套迁移。正式上线前还需由研究团队完成角色授权、备份恢复演练、数据处理协议和机构安全验收。
 
 ## 当前边界
 
