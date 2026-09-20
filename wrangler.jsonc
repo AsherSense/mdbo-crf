@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "mdbo-crf",
+  "main": "dist/server/index.js",
+  "compatibility_date": "2026-09-20",
+  "workers_dev": true,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "mdbo-crf-production",
+      "database_id": "eb77baa4-214d-425a-b50f-94ae8c994dc0",
+      "migrations_dir": "drizzle"
+    }
+  ]
+}

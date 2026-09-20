@@ -24,7 +24,7 @@ Node.js 24：`npm ci`、`npm run build`、`npm test`、`npm run dev`。
 
 当前Sites部署通过私有访问策略和平台可信身份头鉴别用户；此入口仅面向中央管理员。随访/终点裁定人员不能使用带有分组、手术及完整导出的管理员入口。
 
-当前 Cloudflare Workers 部署使用 D1 云数据库，并必须在 Worker 上启用 Cloudflare Access（All traffic）。线上 Worker 只接受 Cloudflare 提供的可信 `ctx.access` 身份对象，页面和 API 均在身份检查后开放，不信任客户端自带身份头。先运行 `npm run cf:login` 和 `npm run cf:create-db`，将返回的数据库 ID 写入 `wrangler.jsonc`，然后执行 `npm run cf:migrate` 与 `npm run deploy`。在 Worker 的 Access 设置中配置只允许研究团队账号登录，部署后从未登录浏览器验证访问会被拒绝。源代码公开不代表患者数据公开；D1 数据不会进入 GitHub。
+Cloudflare Worker 已部署在 `https://mdbo-crf.ashersense-research.workers.dev`，绑定全新的 APAC D1 数据库 `mdbo-crf-production`（见 `wrangler.jsonc`）。但 Cloudflare Zero Trust / Access 尚未开通：目前页面与 API 均返回 401，不能登录或录入数据。先由账号所有者在 Cloudflare 控制台完成 Zero Trust 组织、Free 方案及付款资料确认，然后在此 Worker 的 Access 设置中启用 **All traffic**，仅允许获授权的研究团队账号；最后核验未登录被拒绝、获授权用户可保存并重新读取虚构测试记录。Worker 仅接受 Cloudflare 提供的可信 `ctx.access` 身份对象，不信任客户端自带身份头。`npm run deploy` 可重新部署；源代码公开不代表患者数据公开，D1 数据不会进入 GitHub。
 
 不得在未启用 Access 的情况下录入任何患者信息。`drizzle/0005_purge_confirmed_test_data.sql` 会清空患者、记录、随机化及审计数据，仅适用于经确认的全新空库初始化；绝不可对已有正式数据的 D1 执行整套迁移。正式上线前还需由研究团队完成角色授权、备份恢复演练、数据处理协议和机构安全验收。
 
