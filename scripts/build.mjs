@@ -4,7 +4,7 @@ fs.mkdirSync('dist/server',{recursive:true});fs.mkdirSync('dist/.openai',{recurs
 const schema=fs.readFileSync('src/schema.js','utf8');
 let page=fs.readFileSync('src/index.html','utf8');
 page=page.replace('/* SCHEMA */',schema.replace(/export /g,''));
-page=page.replace('/* APP */',()=>['workflow.js','guidance.js','help.js','app.js'].map(name=>fs.readFileSync('src/'+name,'utf8').replace(/export /g,'')).join('\n'));
+page=page.replace('/* APP */',()=>['workflow.js','guidance.js','help.js','xlsx.js','xlsx-repair.js','app.js'].map(name=>fs.readFileSync('src/'+name,'utf8').replace(/export /g,'')).join('\n'));
 new vm.Script(page.match(/<script type="module">([\s\S]*?)<\/script>/)[1],{filename:'browser-inline.js'});
 let worker=fs.readFileSync('src/worker.js','utf8').replace(/^import .*\n/,'');
 fs.writeFileSync('dist/server/index.js',schema.replace(/export /g,'')+'\nconst HTML='+JSON.stringify(page)+';\n'+worker);

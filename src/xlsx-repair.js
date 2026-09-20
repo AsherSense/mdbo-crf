@@ -1,0 +1,2 @@
+const xlsxZipBase=xlsxZip;
+xlsxZip=function(files){const styles=files.find(file=>file.name==='xl/styles.xml');if(styles)styles.data=styles.data.replace('</fill><borders','</fill></fills><borders').replace('</borders><cellXfs','</borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs').replace('</styleSheet>','<cellStyles count="1"><cellStyle name="常规" xfId="0" builtinId="0"/></cellStyles></styleSheet>');return xlsxZipBase(files)};
