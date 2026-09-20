@@ -13,9 +13,10 @@ const FIELD_GUIDANCE={
  clinical:{date:'填写常规诊疗中已有检验的真实采血/评价日期，不为了满足7、21、28天条件改写日期。',time:'由所选7天、21天或28天子页自动带入；这是生化评价时限，不是额外强制访视。'},
  outcome:{date:'填写实际评价日期；第180天主要终点与术后6个日历月不同，以上方计划日期核对。',rbo180:'依据截至术后180天已裁定的事件填写；观察未满、死亡或失访不能直接当作无RBO。',rboDate:'填写首次经裁定的再次胆道梗阻发生日期；无确诊事件时留空。',rboType:'有经裁定的RBO时按类型选择；没有事件时留空。',exit:'明确退出研究时选是；仍继续研究选否，尚未核实时留空。',exitReason:'仅退出时选择原因；其他原因须在说明中写明。',exitDate:'填写实际退出研究日期；未退出可留空。',lastFollow:'填写最后一次确认取得有效随访资料的日期，不能填最后一次未接通电话日期。',surgeryDate:'填写实际接受外科根治手术的日期；未手术可留空，不能用预计日期。',deathDate:'仅确认死亡时填写实际日期，死亡是独立竞争事件，不自动视为RBO。',deathCause:'确认死亡后按资料选择死因；不适用选NA，其他原因在说明中写明。'}
 };
+const POLISHED_GUIDANCE={ae:{severity:'根据事件对患者日常活动的影响和所需处理，选择严重程度：轻＝症状轻微，不影响日常活动，通常无需特殊处理；中＝影响部分日常活动，或需要一般性治疗；重＝明显影响日常活动，或需要强化治疗。只有确认该事件直接导致患者死亡时才选“致死”。本项是严重程度分级，不等同于严重不良事件（SAE）判定；是否属于SAE必须在下一项按死亡、危及生命、住院或延长住院、致残等标准单独判断。',reported:'先判断本事件是否属于SAE。属于SAE时，应按方案在研究者首次获知后24小时内完成上报，并选择实际完成情况；未在规定时间内完成时选择“其他”，同时在补充说明中写明延迟原因。非SAE请选择“不适用”。',reportedAt:'仅在已经上报时填写实际提交报告的日期和时间，不填写计划上报时间。该时间不得早于研究者首次获知事件的时间；如有首次报告和随访报告，可在补充说明中分别列明。',awareAt:'填写研究者第一次得知本事件的实际日期和时间。该时间用于计算SAE的24小时上报时限，不得用网页录入时间、事件发生时间或后来补录时间代替。'},screen:{eligibility:'请依据本页列出的全部纳入标准和排除标准完成核对：只有纳入标准全部满足、排除标准全部不符合时，才选择“符合”；只要有一项尚未核实就选择“待核实”，只要有一项排除标准成立或纳入标准不满足就选择“不符合”。该结论与术中导丝是否通过共同决定能否执行随机化。'}};
 export function guidanceFor(module,f){
  const shared={notes:'记录本页“其他”选项的具体内容、未取得资料的原因、日期超窗原因或需要说明的情况；无补充事项可留空。',biliarySymptoms:'按本次评价记录是否仍有发热等胆道症状；不能仅凭TBIL下降判断无症状。',needIntervention:'按临床实际判断是否仍需要再次干预；尚未明确时留空，不把未实施等同于不需要。'};
- const specific=FIELD_GUIDANCE[module]?.[f.id]||(["month1","month3","month6","month12"].includes(module)?FIELD_GUIDANCE.follow[f.id]:null)||shared[f.id];
+ const specific=POLISHED_GUIDANCE[module]?.[f.id]||FIELD_GUIDANCE[module]?.[f.id]||(["month1","month3","month6","month12"].includes(module)?FIELD_GUIDANCE.follow[f.id]:null)||shared[f.id];
  if(specific)return specific;
  if(f.hint)return f.hint+ (f.type==="select"?" 已核实后再选择，尚未核实时留空。":" 未取得资料时留空，不以0代替缺失。");
  if(f.type==="number")return "按原始检查或操作记录填写“"+f.label+"”的数值，使用标示单位"+(f.integer?"，填写整数":"，可保留原报告小数")+"；未检查或未测量时留空，不填0代替缺失。";
