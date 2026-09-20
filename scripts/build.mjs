@@ -1,9 +1,11 @@
 import fs from 'node:fs';
+import vm from 'node:vm';
 fs.mkdirSync('dist/server',{recursive:true});fs.mkdirSync('dist/.openai',{recursive:true});
 const schema=fs.readFileSync('src/schema.js','utf8');
 let page=fs.readFileSync('src/index.html','utf8');
 page=page.replace('/* SCHEMA */',schema.replace(/export /g,''));
 page=page.replace('/* APP */',fs.readFileSync('src/app.js','utf8'));
+new vm.Script(page.match(/<script type="module">([\s\S]*?)<\/script>/)[1],{filename:'browser-inline.js'});
 let worker=fs.readFileSync('src/worker.js','utf8').replace(/^import .*\n/,'');
 fs.writeFileSync('dist/server/index.js',schema.replace(/export /g,'')+'\nconst HTML='+JSON.stringify(page)+';\n'+worker);
 fs.writeFileSync('dist/index.html',page);
