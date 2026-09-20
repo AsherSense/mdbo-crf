@@ -1,6 +1,8 @@
 // Presentation only: existing module IDs, record slots and audit history remain unchanged.
 const pane=(module,label,context='')=>({module,label,context});
 const medication=context=>pane('therapy','用药与抗肿瘤治疗',context);
+export const PERIOP_FIELDS=['nsaid','nsaidOther','pancreaticStent','spec','antibiotic','antibioticDetail'];
+export function fieldVisible(module,field,context){return module!=='therapy'||context==='围术期'||!PERIOP_FIELDS.includes(field)}
 export const WORKFLOW=[
  {id:'screen',title:'01 入院筛选',panes:[pane('screen','筛选与知情同意'),medication('入院')]},
  {id:'baseline',title:'02 术前评估',panes:[pane('baseline','基线资料'),pane('qol','生活质量','基线'),medication('术前')]},
