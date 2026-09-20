@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+fs.mkdirSync('dist/server',{recursive:true});fs.mkdirSync('dist/.openai',{recursive:true});
+const schema=fs.readFileSync('src/schema.js','utf8');
+let page=fs.readFileSync('src/index.html','utf8');
+page=page.replace('/* SCHEMA */',schema.replace(/export /g,''));
+page=page.replace('/* APP */',fs.readFileSync('src/app.js','utf8'));
+let worker=fs.readFileSync('src/worker.js','utf8').replace(/^import .*\n/,'');
+fs.writeFileSync('dist/server/index.js',schema.replace(/export /g,'')+'\nconst HTML='+JSON.stringify(page)+';\n'+worker);
+fs.writeFileSync('dist/index.html',page);
+fs.copyFileSync('.openai/hosting.json','dist/.openai/hosting.json');
+if(fs.existsSync('drizzle'))fs.cpSync('drizzle','dist/.openai/drizzle',{recursive:true});
+console.log('Built Worker, page, manifest and migrations');
