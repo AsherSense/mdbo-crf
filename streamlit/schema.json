@@ -1,0 +1,2156 @@
+{
+  "modules": [
+    {
+      "id": "screen",
+      "title": "入院 · 筛选与知情同意",
+      "source": "CRF-01；方案第8–9页",
+      "fields": [
+        {
+          "id": "admissionDate",
+          "label": "入院日期",
+          "type": "date",
+          "hint": ""
+        },
+        {
+          "id": "date",
+          "label": "筛选日期",
+          "type": "date",
+          "required": true,
+          "hint": "按实际筛选日填写。"
+        },
+        {
+          "id": "initials",
+          "label": "姓名拼音首字母（可留空）",
+          "type": "text",
+          "hint": "按CRF，可留空；不要求录入患者全名。"
+        },
+        {
+          "id": "age",
+          "label": "年龄（岁）",
+          "type": "number",
+          "min": 0,
+          "integer": true,
+          "max": 120,
+          "required": true,
+          "hint": "方案入组年龄≥18岁。"
+        },
+        {
+          "id": "sex",
+          "label": "性别",
+          "type": "select",
+          "options": [
+            "男",
+            "女"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "consent",
+          "label": "已签署知情同意",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "required": true,
+          "hint": "签署书面知情同意后方可开始研究相关流程。"
+        },
+        {
+          "id": "consentDate",
+          "label": "知情同意日期",
+          "type": "date",
+          "hint": "不得晚于中央随机化ERCP日期。"
+        },
+        {
+          "id": "eligibility",
+          "label": "纳入 / 排除标准核对",
+          "type": "select",
+          "options": [
+            "符合全部纳入标准，且无任何排除标准",
+            "不符合",
+            "待核实"
+          ],
+          "required": true,
+          "hint": "综合核对后选择一次即可；下方可展开查看完整标准。"
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "baseline",
+      "title": "术前 · 基线资料",
+      "source": "CRF-02",
+      "fields": [
+        {
+          "id": "date",
+          "label": "实验室检查日期（术前7天内）",
+          "type": "date",
+          "hint": "TBIL基线采用术前7天内结果；按检验单记录日期。"
+        },
+        {
+          "id": "ecog",
+          "label": "ECOG评分",
+          "type": "select",
+          "options": [
+            "0",
+            "1",
+            "2"
+          ],
+          "required": true,
+          "hint": "入组允许0、1或2分；详细评分标准见下方评分备注。"
+        },
+        {
+          "id": "tumor",
+          "label": "原发肿瘤类型",
+          "type": "select",
+          "options": [
+            "胰腺癌",
+            "远端胆管癌",
+            "壶腹癌",
+            "胆囊癌",
+            "转移性淋巴结压迫",
+            "其他符合方案的恶性肿瘤"
+          ],
+          "required": true,
+          "hint": "按确诊原发肿瘤填写；自动归入胰腺癌P / 非胰腺癌NP层。"
+        },
+        {
+          "id": "tnm",
+          "label": "TNM分期（如适用）",
+          "type": "text",
+          "hint": "按原发癌种及报告记录TNM、总分期、版本与依据；展开下方备注核对，不能混用不同癌种标准。"
+        },
+        {
+          "id": "distance",
+          "label": "梗阻距肝门汇合处（cm）",
+          "type": "number",
+          "min": 0,
+          "hint": "按影像记录狭窄距肝门汇合处距离；入组要求≥2cm。"
+        },
+        {
+          "id": "drain",
+          "label": "既往胆道引流史",
+          "type": "select",
+          "options": [
+            "无",
+            "塑料支架",
+            "鼻胆管",
+            "其他"
+          ],
+          "hint": "既往金属支架置入属于排除标准；本项如实记录既往引流。"
+        },
+        {
+          "id": "tbil",
+          "label": "TBIL（μmol/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "alp",
+          "label": "ALP（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "alt",
+          "label": "ALT（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "ast",
+          "label": "AST（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "wbc",
+          "label": "WBC（×10⁹/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "platelets",
+          "label": "血小板（×10⁹/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "单位×10⁹/L；方案排除：纠正后仍<50。"
+        },
+        {
+          "id": "inr",
+          "label": "INR",
+          "type": "number",
+          "min": 0,
+          "hint": "方案排除：纠正后仍INR>1.5；勿用纠正前结果代替纠正后判断。"
+        },
+        {
+          "id": "creatinine",
+          "label": "肌酐（μmol/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "ca199",
+          "label": "CA19-9（U/mL）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "random",
+      "title": "术中 · 中央随机化",
+      "source": "方案第9页；Excel中央随机化登记",
+      "fields": [
+        {
+          "id": "eligibility",
+          "label": "已核实符合全部纳入条件、无排除条件，并已签署知情同意",
+          "type": "select",
+          "options": [
+            "符合全部纳入标准，且无任何排除标准",
+            "不符合",
+            "待核实"
+          ],
+          "required": true,
+          "hint": ""
+        },
+        {
+          "id": "stratum",
+          "label": "随机分层：肿瘤类型",
+          "type": "select",
+          "options": [
+            "P",
+            "NP"
+          ],
+          "required": true,
+          "hint": "P＝胰腺癌，NP＝非胰腺癌。用于获批动态随机算法，不能缺省或由系统猜测；详细病理资料可稍后补录。"
+        },
+        {
+          "id": "date",
+          "label": "ERCP日期",
+          "type": "date",
+          "required": true,
+          "hint": "实际ERCP日期；必须在导丝成功跨越狭窄后申请随机。"
+        },
+        {
+          "id": "guidewire",
+          "label": "导丝已成功跨越狭窄",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "required": true,
+          "hint": "选择“是”且资格核对通过后才能分配。"
+        },
+        {
+          "id": "operator",
+          "label": "随机执行人姓名",
+          "type": "text",
+          "required": true,
+          "hint": "实际执行中央随机化的人员姓名；分配后固定保留。"
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "procedure",
+      "title": "手术 · ERCP / 支架 / 夹锚定",
+      "source": "CRF-03/04；方案第9页",
+      "fields": [
+        {
+          "id": "conforms",
+          "label": "是否按随机组方案完成",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": "随机后计划治疗自动带入并变灰；术后核对真实操作。"
+        },
+        {
+          "id": "date",
+          "label": "支架置入日期",
+          "type": "date",
+          "required": true,
+          "hint": "实际支架置入日，是随访、180天终点和TRBO的起算日期。"
+        },
+        {
+          "id": "anesthesia",
+          "label": "镇静/麻醉方式",
+          "type": "select",
+          "options": [
+            "镇静",
+            "全麻",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "est",
+          "label": "乳头处理（EST / ESBD）",
+          "type": "select",
+          "options": [
+            "EST（内镜乳头括约肌切开术）",
+            "ESBD（内镜乳头括约肌球囊扩张术）",
+            "EST + ESBD",
+            "均未做",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "estDetail",
+          "label": "EST / ESBD具体操作与其他说明",
+          "type": "text",
+          "hint": ""
+        },
+        {
+          "id": "nasal",
+          "label": "是否置入鼻胆管",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "stenosis",
+          "label": "狭窄段长度（cm）",
+          "type": "number",
+          "min": 0,
+          "hint": "按术中造影测量，单位cm。"
+        },
+        {
+          "id": "actual",
+          "label": "实际置入治疗",
+          "type": "select",
+          "options": [
+            "夹锚定FCSEMS",
+            "UCSEMS",
+            "其他",
+            "未置入"
+          ],
+          "hint": "如实记录实际治疗；不会改变已锁定的随机组。"
+        },
+        {
+          "id": "stentModel",
+          "label": "支架厂家 / 型号",
+          "type": "text",
+          "hint": "按备案名称填写厂家和型号。"
+        },
+        {
+          "id": "diameter",
+          "label": "实际支架直径（mm）",
+          "type": "number",
+          "min": 0,
+          "hint": "方案要求10mm；如有偏离请如实记录。"
+        },
+        {
+          "id": "length",
+          "label": "支架长度（mm）",
+          "type": "number",
+          "min": 0,
+          "hint": "按实际置入支架记录，单位mm。"
+        },
+        {
+          "id": "release",
+          "label": "支架释放方式",
+          "type": "select",
+          "options": [
+            "跨乳头放置",
+            "其他"
+          ],
+          "hint": "方案两组均跨乳头放置；偏离时选择其他并说明。"
+        },
+        {
+          "id": "technical",
+          "label": "技术成功（覆盖狭窄全长且透视位置理想）",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": "成功释放并覆盖狭窄全长，且透视下位置理想。"
+        },
+        {
+          "id": "complication",
+          "label": "术中并发症",
+          "type": "select",
+          "options": [
+            "无",
+            "出血",
+            "穿孔",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "clip",
+          "label": "是否实施夹锚定",
+          "type": "select",
+          "options": [
+            "是",
+            "否",
+            "NA"
+          ],
+          "hint": "试验组夹锚定；对照组不锚定，填NA。"
+        },
+        {
+          "id": "clipType",
+          "label": "夹子类型（方案）",
+          "type": "text",
+          "hint": ""
+        },
+        {
+          "id": "clipModel",
+          "label": "夹子品牌 / 型号",
+          "type": "text",
+          "hint": "按备案名称填写；对照组可留空。"
+        },
+        {
+          "id": "clipCount",
+          "label": "实际夹数量（枚）",
+          "type": "number",
+          "min": 0,
+          "integer": true,
+          "hint": "试验组方案为2枚；对照组不锚定。"
+        },
+        {
+          "id": "exposure",
+          "label": "远端外露长度（mm）",
+          "type": "number",
+          "min": 0,
+          "hint": "方案约5–10mm"
+        },
+        {
+          "id": "deviation",
+          "label": "方案偏离原因 / 夹锚定备注",
+          "type": "textarea",
+          "hint": "实际治疗、直径、释放方式或夹数量偏离方案时写明原因。"
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "ae",
+      "title": "不良事件及严重不良事件",
+      "repeat": true,
+      "source": "CRF-08；方案第11页",
+      "fields": [
+        {
+          "id": "date",
+          "label": "发生日期",
+          "type": "date",
+          "required": true,
+          "hint": ""
+        },
+        {
+          "id": "event",
+          "label": "事件名称",
+          "type": "text",
+          "required": true,
+          "hint": "CRF示例：胰腺炎、胆囊炎、出血、穿孔、感染、夹相关损伤。"
+        },
+        {
+          "id": "severity",
+          "label": "严重程度",
+          "type": "select",
+          "options": [
+            "轻",
+            "中",
+            "重",
+            "致死"
+          ],
+          "hint": "事件严重程度与是否SAE分别判断；致死应核对SAE死亡项。"
+        },
+        {
+          "id": "sae",
+          "label": "是否SAE",
+          "type": "select",
+          "options": [
+            "否",
+            "是-死亡",
+            "是-危及生命",
+            "是-住院/延长住院",
+            "是-致残",
+            "是-其他"
+          ],
+          "hint": "包括死亡、危及生命、住院/延长住院、致残及其他重要医学事件。"
+        },
+        {
+          "id": "related",
+          "label": "与器械/操作相关性",
+          "type": "select",
+          "options": [
+            "无关",
+            "可能相关",
+            "很可能相关",
+            "肯定相关"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "measure",
+          "label": "处理措施",
+          "type": "select",
+          "options": [
+            "对症",
+            "抗生素",
+            "输血",
+            "内镜处理",
+            "外科/介入",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "outcome",
+          "label": "转归",
+          "type": "select",
+          "options": [
+            "痊愈",
+            "好转",
+            "未愈",
+            "后遗症",
+            "死亡"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "awareAt",
+          "label": "获知时间",
+          "type": "datetime-local",
+          "hint": "首次获知事件的实际时间，用于核对24小时上报时限。"
+        },
+        {
+          "id": "reported",
+          "label": "上报情况",
+          "type": "select",
+          "options": [
+            "不适用",
+            "24h内上报PI/DSMB/伦理",
+            "其他"
+          ],
+          "hint": "SAE在获知后24小时内上报PI、DSMB和伦理委员会。"
+        },
+        {
+          "id": "reportedAt",
+          "label": "上报时间",
+          "type": "datetime-local",
+          "hint": "实际上报时间；超过24小时也应如实填写。"
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "week2",
+      "title": "术后2周 · 14天随访",
+      "day": 14,
+      "window": 3,
+      "source": "CRF-05",
+      "fields": [
+        {
+          "id": "date",
+          "label": "实际随访日期",
+          "type": "date",
+          "required": true,
+          "hint": "术后14天，允许访视窗口±3天。"
+        },
+        {
+          "id": "mode",
+          "label": "随访方式",
+          "type": "select",
+          "options": [
+            "门诊",
+            "电话",
+            "住院"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "improve",
+          "label": "黄疸 / 瘙痒 / 腹痛改善",
+          "type": "select",
+          "options": [
+            "明显改善",
+            "部分改善",
+            "无变化",
+            "加重"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "labDate",
+          "label": "TBIL采血日期",
+          "type": "date",
+          "hint": "真实采血日；访视窗口不等同于临床成功的生化时限。"
+        },
+        {
+          "id": "tbil",
+          "label": "第14天TBIL（μmol/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "CRF的14天生化标准：较术前基线下降≥50%。"
+        },
+        {
+          "id": "biliarySymptoms",
+          "label": "仍有发热等胆道症状",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": "方案临床成功还要求无发热等胆道症状。"
+        },
+        {
+          "id": "needIntervention",
+          "label": "仍需再次干预",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": "方案临床成功还要求无需再次干预。"
+        },
+        {
+          "id": "clinicalSuccess",
+          "label": "临床成功（原CRF称功能成功）",
+          "type": "text",
+          "generated": true,
+          "hint": ""
+        },
+        {
+          "id": "combined",
+          "label": "合并治疗（如化疗）",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "combinedDate",
+          "label": "合并治疗日期",
+          "type": "date",
+          "when": [
+            "combined",
+            "是"
+          ],
+          "hint": "仅“合并治疗（如化疗）”为“是”时填写。"
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "month1",
+      "title": "术后1个月 · 随访与30天并发症",
+      "month": 1,
+      "window": 7,
+      "source": "CRF-06；CRF-05的30天事件移至此处",
+      "fields": [
+        {
+          "id": "date",
+          "label": "实际随访日期",
+          "type": "date",
+          "required": true,
+          "hint": ""
+        },
+        {
+          "id": "mode",
+          "label": "随访方式",
+          "type": "select",
+          "options": [
+            "门诊",
+            "电话",
+            "住院"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "symptom",
+          "label": "临床症状",
+          "type": "select",
+          "options": [
+            "无",
+            "黄疸",
+            "发热/寒战",
+            "腹痛",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "tbil",
+          "label": "TBIL（μmol/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "alp",
+          "label": "ALP（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "alt",
+          "label": "ALT（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "ast",
+          "label": "AST（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "imaging",
+          "label": "影像学检查",
+          "type": "select",
+          "options": [
+            "无",
+            "CT",
+            "MRI/MRCP",
+            "超声",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "stent",
+          "label": "支架位置",
+          "type": "select",
+          "options": [
+            "正常",
+            "可疑移位",
+            "明确移位"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "suspectedRbo",
+          "label": "是否疑似RBO",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "anti",
+          "label": "抗肿瘤治疗",
+          "type": "select",
+          "options": [
+            "无",
+            "化疗",
+            "放疗",
+            "靶向/免疫治疗",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "ae",
+          "label": "自上次访视起不良事件",
+          "type": "select",
+          "options": [
+            "无",
+            "有"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "survival",
+          "label": "生存状态",
+          "type": "select",
+          "options": [
+            "存活",
+            "死亡"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "deathDate",
+          "label": "死亡日期",
+          "type": "date",
+          "when": [
+            "survival",
+            "死亡"
+          ],
+          "hint": "仅“生存状态”为“死亡”时填写。"
+        },
+        {
+          "id": "deathCause",
+          "label": "死亡原因",
+          "type": "text",
+          "when": [
+            "survival",
+            "死亡"
+          ],
+          "hint": "仅“生存状态”为“死亡”时填写。"
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        },
+        {
+          "id": "reviewDate",
+          "label": "30天事件观察截止日期",
+          "type": "date",
+          "hint": ""
+        },
+        {
+          "id": "pancreatitis",
+          "label": "30天内胰腺炎",
+          "type": "select",
+          "options": [
+            "无",
+            "轻",
+            "中",
+            "重"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "cholecystitis",
+          "label": "30天内胆囊炎",
+          "type": "select",
+          "options": [
+            "无",
+            "轻",
+            "中",
+            "重"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "bleeding",
+          "label": "30天内出血",
+          "type": "select",
+          "options": [
+            "无",
+            "轻",
+            "中",
+            "重"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "migration",
+          "label": "30天内支架移位",
+          "type": "select",
+          "options": [
+            "无",
+            "有"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "migrationIntervention",
+          "label": "支架移位需干预",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "when": [
+            "migration",
+            "有"
+          ],
+          "hint": "仅“30天内支架移位”为“有”时填写。"
+        }
+      ]
+    },
+    {
+      "id": "month3",
+      "title": "术后3个月 · 定期随访",
+      "month": 3,
+      "window": 7,
+      "source": "CRF-06",
+      "fields": [
+        {
+          "id": "date",
+          "label": "实际随访日期",
+          "type": "date",
+          "required": true,
+          "hint": ""
+        },
+        {
+          "id": "mode",
+          "label": "随访方式",
+          "type": "select",
+          "options": [
+            "门诊",
+            "电话",
+            "住院"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "symptom",
+          "label": "临床症状",
+          "type": "select",
+          "options": [
+            "无",
+            "黄疸",
+            "发热/寒战",
+            "腹痛",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "tbil",
+          "label": "TBIL（μmol/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "alp",
+          "label": "ALP（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "alt",
+          "label": "ALT（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "ast",
+          "label": "AST（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "imaging",
+          "label": "影像学检查",
+          "type": "select",
+          "options": [
+            "无",
+            "CT",
+            "MRI/MRCP",
+            "超声",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "stent",
+          "label": "支架位置",
+          "type": "select",
+          "options": [
+            "正常",
+            "可疑移位",
+            "明确移位"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "suspectedRbo",
+          "label": "是否疑似RBO",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "anti",
+          "label": "抗肿瘤治疗",
+          "type": "select",
+          "options": [
+            "无",
+            "化疗",
+            "放疗",
+            "靶向/免疫治疗",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "ae",
+          "label": "自上次访视起不良事件",
+          "type": "select",
+          "options": [
+            "无",
+            "有"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "survival",
+          "label": "生存状态",
+          "type": "select",
+          "options": [
+            "存活",
+            "死亡"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "deathDate",
+          "label": "死亡日期",
+          "type": "date",
+          "when": [
+            "survival",
+            "死亡"
+          ],
+          "hint": "仅“生存状态”为“死亡”时填写。"
+        },
+        {
+          "id": "deathCause",
+          "label": "死亡原因",
+          "type": "text",
+          "when": [
+            "survival",
+            "死亡"
+          ],
+          "hint": "仅“生存状态”为“死亡”时填写。"
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "month6",
+      "title": "术后6个月 · 随访",
+      "month": 6,
+      "window": 7,
+      "source": "CRF-06（180天主要终点单独标注）",
+      "fields": [
+        {
+          "id": "date",
+          "label": "实际随访日期",
+          "type": "date",
+          "required": true,
+          "hint": ""
+        },
+        {
+          "id": "mode",
+          "label": "随访方式",
+          "type": "select",
+          "options": [
+            "门诊",
+            "电话",
+            "住院"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "symptom",
+          "label": "临床症状",
+          "type": "select",
+          "options": [
+            "无",
+            "黄疸",
+            "发热/寒战",
+            "腹痛",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "tbil",
+          "label": "TBIL（μmol/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "alp",
+          "label": "ALP（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "alt",
+          "label": "ALT（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "ast",
+          "label": "AST（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "imaging",
+          "label": "影像学检查",
+          "type": "select",
+          "options": [
+            "无",
+            "CT",
+            "MRI/MRCP",
+            "超声",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "stent",
+          "label": "支架位置",
+          "type": "select",
+          "options": [
+            "正常",
+            "可疑移位",
+            "明确移位"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "suspectedRbo",
+          "label": "是否疑似RBO",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "anti",
+          "label": "抗肿瘤治疗",
+          "type": "select",
+          "options": [
+            "无",
+            "化疗",
+            "放疗",
+            "靶向/免疫治疗",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "ae",
+          "label": "自上次访视起不良事件",
+          "type": "select",
+          "options": [
+            "无",
+            "有"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "survival",
+          "label": "生存状态",
+          "type": "select",
+          "options": [
+            "存活",
+            "死亡"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "deathDate",
+          "label": "死亡日期",
+          "type": "date",
+          "when": [
+            "survival",
+            "死亡"
+          ],
+          "hint": "仅“生存状态”为“死亡”时填写。"
+        },
+        {
+          "id": "deathCause",
+          "label": "死亡原因",
+          "type": "text",
+          "when": [
+            "survival",
+            "死亡"
+          ],
+          "hint": "仅“生存状态”为“死亡”时填写。"
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "month12",
+      "title": "术后12个月 · 定期随访",
+      "month": 12,
+      "window": 7,
+      "source": "CRF-06",
+      "fields": [
+        {
+          "id": "date",
+          "label": "实际随访日期",
+          "type": "date",
+          "required": true,
+          "hint": ""
+        },
+        {
+          "id": "mode",
+          "label": "随访方式",
+          "type": "select",
+          "options": [
+            "门诊",
+            "电话",
+            "住院"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "symptom",
+          "label": "临床症状",
+          "type": "select",
+          "options": [
+            "无",
+            "黄疸",
+            "发热/寒战",
+            "腹痛",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "tbil",
+          "label": "TBIL（μmol/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "alp",
+          "label": "ALP（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "alt",
+          "label": "ALT（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "ast",
+          "label": "AST（U/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "按检验单原值及上方单位填写；未检测请留空。"
+        },
+        {
+          "id": "imaging",
+          "label": "影像学检查",
+          "type": "select",
+          "options": [
+            "无",
+            "CT",
+            "MRI/MRCP",
+            "超声",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "stent",
+          "label": "支架位置",
+          "type": "select",
+          "options": [
+            "正常",
+            "可疑移位",
+            "明确移位"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "suspectedRbo",
+          "label": "是否疑似RBO",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "anti",
+          "label": "抗肿瘤治疗",
+          "type": "select",
+          "options": [
+            "无",
+            "化疗",
+            "放疗",
+            "靶向/免疫治疗",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "ae",
+          "label": "自上次访视起不良事件",
+          "type": "select",
+          "options": [
+            "无",
+            "有"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "survival",
+          "label": "生存状态",
+          "type": "select",
+          "options": [
+            "存活",
+            "死亡"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "deathDate",
+          "label": "死亡日期",
+          "type": "date",
+          "when": [
+            "survival",
+            "死亡"
+          ],
+          "hint": "仅“生存状态”为“死亡”时填写。"
+        },
+        {
+          "id": "deathCause",
+          "label": "死亡原因",
+          "type": "text",
+          "when": [
+            "survival",
+            "死亡"
+          ],
+          "hint": "仅“生存状态”为“死亡”时填写。"
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "rbo",
+      "title": "再次胆道梗阻与处理",
+      "repeat": true,
+      "source": "CRF-07；由事件裁定委员会最终裁定",
+      "fields": [
+        {
+          "id": "date",
+          "label": "疑似RBO触发日期",
+          "type": "date",
+          "required": true,
+          "hint": "疑似触发日期与最终裁定RBO日期分别记录。"
+        },
+        {
+          "id": "confirmed",
+          "label": "RBO最终裁定",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": "由事件裁定委员会确认，疑似事件不能直接当作终点。"
+        },
+        {
+          "id": "rboDate",
+          "label": "裁定RBO发生日期",
+          "type": "date",
+          "hint": "按委员会裁定填写事件实际发生日期。"
+        },
+        {
+          "id": "adjudicator",
+          "label": "裁定人 / 委员会",
+          "type": "text",
+          "hint": ""
+        },
+        {
+          "id": "type",
+          "label": "RBO类型",
+          "type": "select",
+          "options": [
+            "支架闭塞",
+            "有症状支架移位",
+            "其他"
+          ],
+          "hint": "按TOKYO 2014：支架闭塞或有症状支架移位；其他需说明。"
+        },
+        {
+          "id": "occlusion",
+          "label": "闭塞原因",
+          "type": "select",
+          "options": [
+            "肿瘤内生",
+            "末端过度生长",
+            "胆泥/食物嵌塞",
+            "血凝块",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "migration",
+          "label": "移位情况",
+          "type": "select",
+          "options": [
+            "部分-近端",
+            "部分-远端",
+            "完全-近端",
+            "完全-远端",
+            "NA"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "clip",
+          "label": "夹在位",
+          "type": "select",
+          "options": [
+            "是",
+            "否",
+            "NA"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "intervention",
+          "label": "再干预方式",
+          "type": "select",
+          "options": [
+            "ERCP清洗",
+            "置入塑料支架",
+            "套叠金属支架",
+            "更换支架",
+            "外科/介入",
+            "其他"
+          ],
+          "hint": "未发生RBO前，方案禁止预防性再次胆道引流。"
+        },
+        {
+          "id": "interventionDate",
+          "label": "再干预日期",
+          "type": "date",
+          "hint": ""
+        },
+        {
+          "id": "technical",
+          "label": "再干预技术成功",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "ae",
+          "label": "再干预并发症",
+          "type": "select",
+          "options": [
+            "无",
+            "有"
+          ],
+          "hint": "如有并发症，同时填写AE/SAE记录。"
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "qol",
+      "title": "生活质量最终评分",
+      "repeat": true,
+      "source": "CRF-09；录入授权量表完成后的最终0–100分",
+      "fields": [
+        {
+          "id": "date",
+          "label": "实际评估日期",
+          "type": "date",
+          "required": true,
+          "hint": ""
+        },
+        {
+          "id": "time",
+          "label": "评估时间点",
+          "type": "select",
+          "options": [
+            "基线",
+            "3月",
+            "6月"
+          ],
+          "hint": "CRF评估时点：基线、3个月、6个月。"
+        },
+        {
+          "id": "scale",
+          "label": "量表类型",
+          "type": "select",
+          "options": [
+            "QLQ-C30",
+            "QLQ-BIL21",
+            "两者"
+          ],
+          "hint": "使用授权原始QLQ-C30 / QLQ-BIL21量表；这里记录完成情况。"
+        },
+        {
+          "id": "method",
+          "label": "填写方式",
+          "type": "select",
+          "options": [
+            "自填",
+            "访谈",
+            "代填"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "c30_final",
+          "label": "QLQ-C30最终评分（0–100）",
+          "type": "number",
+          "min": 0,
+          "max": 100,
+          "whenScale": "QLQ-C30",
+          "scoreDirection": "按正式评分结果录入",
+          "hint": ""
+        },
+        {
+          "id": "bil21_final",
+          "label": "QLQ-BIL21最终评分（0–100）",
+          "type": "number",
+          "min": 0,
+          "max": 100,
+          "whenScale": "QLQ-BIL21",
+          "scoreDirection": "按正式评分结果录入",
+          "hint": ""
+        },
+        {
+          "id": "complete",
+          "label": "原量表是否完整",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "missing",
+          "label": "原量表缺失条目数",
+          "type": "number",
+          "min": 0,
+          "integer": true,
+          "hint": "实际缺失条目数；不可把缺失数据填为0分。"
+        },
+        {
+          "id": "proxy",
+          "label": "代填说明",
+          "type": "text",
+          "hint": "代填时说明原因及代填情况。"
+        },
+        {
+          "id": "sourceRef",
+          "label": "原始量表文件编号 / 归档位置",
+          "type": "text",
+          "hint": ""
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "therapy",
+      "title": "用药与抗肿瘤治疗",
+      "repeat": true,
+      "source": "CRF-10",
+      "fields": [
+        {
+          "id": "visit",
+          "label": "所属访视",
+          "type": "select",
+          "options": [
+            "入院",
+            "术前",
+            "围术期",
+            "术后7–30天",
+            "术后3个月",
+            "术后6个月",
+            "术后12个月"
+          ],
+          "hint": "新记录按当前访视自动带入。历史记录可核对后手动归属，不改变实际用药日期。"
+        },
+        {
+          "id": "date",
+          "label": "记录日期",
+          "type": "date",
+          "required": true,
+          "hint": ""
+        },
+        {
+          "id": "nsaid",
+          "label": "围术期NSAIDs",
+          "type": "select",
+          "options": [
+            "未用",
+            "吲哚美辛",
+            "双氯芬酸",
+            "其他"
+          ],
+          "hint": "按实际围术期用药选择；其他药物填写说明。"
+        },
+        {
+          "id": "nsaidOther",
+          "label": "NSAIDs其他说明",
+          "type": "text",
+          "hint": ""
+        },
+        {
+          "id": "pancreaticStent",
+          "label": "预防性胰管支架",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "spec",
+          "label": "胰管支架规格",
+          "type": "text",
+          "hint": ""
+        },
+        {
+          "id": "antibiotic",
+          "label": "围术期抗生素",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "antibioticDetail",
+          "label": "抗生素药物 / 疗程",
+          "type": "text",
+          "hint": "写明药物名称及疗程。"
+        },
+        {
+          "id": "chemo",
+          "label": "化疗方案",
+          "type": "text",
+          "hint": "方案名称，并分别记录起止日期。"
+        },
+        {
+          "id": "chemoStart",
+          "label": "化疗开始日期",
+          "type": "date",
+          "hint": ""
+        },
+        {
+          "id": "chemoEnd",
+          "label": "化疗结束日期",
+          "type": "date",
+          "hint": ""
+        },
+        {
+          "id": "radiation",
+          "label": "放疗",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "radioStart",
+          "label": "放疗开始日期",
+          "type": "date",
+          "hint": ""
+        },
+        {
+          "id": "radioEnd",
+          "label": "放疗结束日期",
+          "type": "date",
+          "hint": ""
+        },
+        {
+          "id": "immune",
+          "label": "免疫 / 靶向治疗",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "immuneDrug",
+          "label": "免疫 / 靶向药物",
+          "type": "text",
+          "hint": "如实记录药名，不自动推断是否接受治疗。"
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "clinical",
+      "title": "术后早期检验与临床成功评价",
+      "repeat": true,
+      "source": "方案第10页；仅记录已有常规诊疗数据，不新增强制访视",
+      "fields": [
+        {
+          "id": "date",
+          "label": "采血 / 评价日期",
+          "type": "date",
+          "required": true,
+          "hint": ""
+        },
+        {
+          "id": "time",
+          "label": "评价时点",
+          "type": "select",
+          "options": [
+            "7天",
+            "21天",
+            "28天"
+          ],
+          "hint": "仅补录已有常规诊疗结果，不增加强制访视。"
+        },
+        {
+          "id": "tbil",
+          "label": "TBIL（μmol/L）",
+          "type": "number",
+          "min": 0,
+          "hint": "方案：7天内下降≥25%，21天内≥75%，或28天内≤2mg/dL（约34.2μmol/L）。"
+        },
+        {
+          "id": "biliarySymptoms",
+          "label": "仍有发热等胆道症状",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "needIntervention",
+          "label": "仍需再次干预",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "clinicalSuccess",
+          "label": "临床成功判定",
+          "type": "text",
+          "generated": true,
+          "hint": ""
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "outcome",
+      "title": "结局 · 180天 / 退出 / 失访",
+      "day": 180,
+      "source": "CRF-11；竞争风险所需事件日期分别保留",
+      "fields": [
+        {
+          "id": "date",
+          "label": "评价日期",
+          "type": "date",
+          "required": true,
+          "hint": "主要终点评价以支架置入后第180天为准。"
+        },
+        {
+          "id": "rbo180",
+          "label": "截至180天是否发生RBO",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": "仅依据截至180天的已裁定RBO，不能把失访当作未发生。"
+        },
+        {
+          "id": "rboDate",
+          "label": "首次裁定RBO日期",
+          "type": "date",
+          "hint": ""
+        },
+        {
+          "id": "rboType",
+          "label": "RBO类型",
+          "type": "select",
+          "options": [
+            "支架闭塞",
+            "有症状支架移位",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "exit",
+          "label": "退出研究",
+          "type": "select",
+          "options": [
+            "是",
+            "否"
+          ],
+          "hint": ""
+        },
+        {
+          "id": "exitReason",
+          "label": "退出原因",
+          "type": "select",
+          "options": [
+            "撤回同意",
+            "技术失败",
+            "根治手术",
+            "SAE",
+            "失访",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "exitDate",
+          "label": "退出日期",
+          "type": "date",
+          "hint": ""
+        },
+        {
+          "id": "lastFollow",
+          "label": "最后一次有效随访日期",
+          "type": "date",
+          "hint": "最后一次有效随访日期，用于失访删失。"
+        },
+        {
+          "id": "surgeryDate",
+          "label": "外科根治手术日期",
+          "type": "date",
+          "hint": "未发生RBO前接受根治手术者，在手术日删失。"
+        },
+        {
+          "id": "deathDate",
+          "label": "死亡日期（如适用）",
+          "type": "date",
+          "hint": "死亡作为竞争事件独立记录，不自动计为RBO。"
+        },
+        {
+          "id": "deathCause",
+          "label": "死因",
+          "type": "select",
+          "options": [
+            "NA",
+            "肿瘤进展",
+            "支架相关并发症",
+            "其他"
+          ],
+          "hint": "选择其他时，在本模块补充说明中填写具体情况。"
+        },
+        {
+          "id": "notes",
+          "label": "补充说明 / 其他选项说明",
+          "type": "textarea",
+          "hint": ""
+        }
+      ]
+    }
+  ],
+  "centers": {
+    "C01": "大连医科大学附属第二医院",
+    "C02": "山东省立第三医院",
+    "C03": "吉林大学第一医院",
+    "C04": "哈尔滨医科大学附属第二医院",
+    "C05": "青海大学附属医院",
+    "C06": "宁夏医科大学总医院"
+  },
+  "groups": {
+    "A": "试验组 · 夹锚定全覆膜金属支架（FCSEMS）",
+    "B": "对照组 · 非覆膜金属支架（UCSEMS，无夹锚定）"
+  },
+  "workflow": [
+    {
+      "id": "screen",
+      "title": "01 入院筛选",
+      "panes": [
+        {
+          "module": "screen",
+          "label": "筛选与知情同意",
+          "context": ""
+        },
+        {
+          "module": "therapy",
+          "label": "用药与抗肿瘤治疗",
+          "context": "入院"
+        }
+      ]
+    },
+    {
+      "id": "baseline",
+      "title": "02 术前评估",
+      "panes": [
+        {
+          "module": "baseline",
+          "label": "基线资料",
+          "context": ""
+        },
+        {
+          "module": "qol",
+          "label": "生活质量",
+          "context": "基线"
+        },
+        {
+          "module": "therapy",
+          "label": "用药与抗肿瘤治疗",
+          "context": "术前"
+        }
+      ]
+    },
+    {
+      "id": "surgery",
+      "title": "03 随机分组与手术",
+      "panes": [
+        {
+          "module": "random",
+          "label": "中央随机分组",
+          "context": ""
+        },
+        {
+          "module": "procedure",
+          "label": "手术记录",
+          "context": ""
+        },
+        {
+          "module": "therapy",
+          "label": "用药与抗肿瘤治疗",
+          "context": "围术期"
+        }
+      ]
+    },
+    {
+      "id": "early",
+      "title": "04 术后2周",
+      "panes": [
+        {
+          "module": "week2",
+          "label": "14天随访",
+          "context": ""
+        },
+        {
+          "module": "therapy",
+          "label": "用药与抗肿瘤治疗",
+          "context": "术后7–30天"
+        },
+        {
+          "module": "clinical",
+          "label": "记录其他已有检验",
+          "context": "",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "month1",
+      "title": "05 术后1个月",
+      "panes": [
+        {
+          "module": "month1",
+          "label": "1个月随访与30天并发症",
+          "context": ""
+        },
+        {
+          "module": "therapy",
+          "label": "用药与抗肿瘤治疗",
+          "context": "术后7–30天"
+        }
+      ]
+    },
+    {
+      "id": "month3",
+      "title": "06 术后3个月",
+      "panes": [
+        {
+          "module": "month3",
+          "label": "本次随访",
+          "context": ""
+        },
+        {
+          "module": "qol",
+          "label": "生活质量",
+          "context": "3月"
+        },
+        {
+          "module": "therapy",
+          "label": "用药与抗肿瘤治疗",
+          "context": "术后3个月"
+        }
+      ]
+    },
+    {
+      "id": "month6",
+      "title": "07 术后6个月",
+      "panes": [
+        {
+          "module": "month6",
+          "label": "本次随访",
+          "context": ""
+        },
+        {
+          "module": "qol",
+          "label": "生活质量",
+          "context": "6月"
+        },
+        {
+          "module": "outcome",
+          "label": "180天终点与结局",
+          "context": ""
+        },
+        {
+          "module": "therapy",
+          "label": "用药与抗肿瘤治疗",
+          "context": "术后6个月"
+        }
+      ]
+    },
+    {
+      "id": "month12",
+      "title": "08 术后12个月",
+      "panes": [
+        {
+          "module": "month12",
+          "label": "本次随访",
+          "context": ""
+        },
+        {
+          "module": "therapy",
+          "label": "用药与抗肿瘤治疗",
+          "context": "术后12个月"
+        }
+      ]
+    },
+    {
+      "id": "ae",
+      "title": "不良事件及严重不良事件",
+      "event": true,
+      "panes": [
+        {
+          "module": "ae",
+          "label": "事件详情",
+          "context": ""
+        }
+      ]
+    },
+    {
+      "id": "rbo",
+      "title": "再次胆道梗阻与处理",
+      "event": true,
+      "panes": [
+        {
+          "module": "rbo",
+          "label": "梗阻及再次干预",
+          "context": ""
+        }
+      ]
+    },
+    {
+      "id": "outcome",
+      "title": "退出、失访与生存结局",
+      "event": true,
+      "panes": [
+        {
+          "module": "outcome",
+          "label": "终点与结局",
+          "context": ""
+        }
+      ]
+    }
+  ]
+}
