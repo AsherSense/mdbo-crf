@@ -11,13 +11,13 @@ const fs=require('node:fs');
  async function save(){await Promise.all([page.waitForResponse(r=>r.url().endsWith('/records')&&r.request().method()==='POST'),page.locator('#saveModule').click()]);await page.locator('#dirty').getByText('本页资料已保存',{exact:true}).waitFor();}
  for(let i=0;i<10;i++){
   let fixture=completeCase(i),id='UI-COMPLETE-'+run+'-'+i;
-  await page.getByLabel('新患者住院号').fill(id);await page.getByLabel('研究中心',{exact:true}).selectOption(fixture.center);await page.getByRole('button',{name:'建立患者档案',exact:true}).click();await page.getByText('患者档案已建立。请填写筛选与知情同意。',{exact:true}).waitFor();
+  await page.locator('#newPatient summary').click();await page.getByLabel('新患者住院号').fill(id);await page.getByLabel('研究中心',{exact:true}).selectOption(fixture.center);await page.getByRole('button',{name:'建立患者档案',exact:true}).click();await page.getByText('患者档案已建立。请填写筛选与知情同意。',{exact:true}).waitFor();
   const completed=new Set();let allocation;
-  for(const view of WORKFLOW){
+  for(const view of WORKFLOW.map(v=>({...v,panes:v.panes.flatMap((p,index)=>p.module==='clinical'?['7天','21天','28天'].map(context=>({...p,context,testIndex:index})):[{...p,testIndex:index}])}))){
    for(let pi=0;pi<view.panes.length;pi++){
     const pane=view.panes[pi],row=fixture.records.find(r=>r.module===pane.module&&(!pane.context||r.data[pane.module==='therapy'?'visit':'time']===pane.context));
     if(!row||completed.has(row.module+':'+row.slot))continue;
-    await page.locator('[data-view="'+view.id+'"]').click();if(pi)await page.locator('[data-pane="'+pi+'"]').click();
+    await page.locator('[data-view="'+view.id+'"]').click();if(pane.optional)await page.locator('.optional-tests summary').click();if(pane.testIndex)await page.locator('[data-pane="'+pane.testIndex+'"]').click();if(row.module==='clinical'&&await page.locator('#field-date').inputValue())await page.locator('#newRecord').click();
     if(await page.locator('[data-history],#exportModule,#backup,#audit,#saveInfo').count())throw Error('Removed UI controls remain');
     if(await page.getByText(/访视整合版|保存位置：服务器数据库|本记录上次保存值/).count())throw Error('Metadata clutter remains');
     if(row.module==='screen'&&!await page.locator('[data-field="eligibility"]').getByText('年龄≥18岁',{exact:true}).isVisible())throw Error('Eligibility criteria not immediately visible');
@@ -35,7 +35,7 @@ const fs=require('node:fs');
     completed.add(row.module+':'+row.slot);
    }
   }
-  await page.reload();await page.getByLabel('已保存患者（服务器）').selectOption(id);await page.getByText('已读取服务器记录',{exact:true}).waitFor();
+  await page.reload();await page.getByLabel('选择已有患者').selectOption(id);await page.getByText('已读取服务器记录',{exact:true}).waitFor();
   const saved=await (await page.request.get('http://127.0.0.1:4173/api/patients/'+id)).json();
   if(saved.records.length!==fixture.records.length)throw Error('Missing saved forms for '+id);
   for(const expected of fixture.records){const actual=saved.records.find(r=>r.module===expected.module&&r.data.date===expected.data.date&&(!expected.data.time||r.data.time===expected.data.time)&&(!expected.data.visit||r.data.visit===expected.data.visit));if(!actual)throw Error('Missing '+expected.module);for(const [k,val]of Object.entries(expected.data))if((actual.data[k]??'')!==val)throw Error(id+' '+expected.module+'.'+k+' expected '+val+' got '+actual.data[k]);}

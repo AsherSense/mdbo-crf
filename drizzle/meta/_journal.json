@@ -15,6 +15,13 @@
       "when": 1789896044920,
       "tag": "0001_audit_locks",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1789901468055,
+      "tag": "0002_allow_deferred_baseline",
+      "breakpoints": true
     }
   ]
 }
