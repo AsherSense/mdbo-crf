@@ -22,6 +22,27 @@
       "when": 1789901468055,
       "tag": "0002_allow_deferred_baseline",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1789902000000,
+      "tag": "0003_patient_archive",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1789905600000,
+      "tag": "0004_patient_contact",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1789909200000,
+      "tag": "0005_purge_confirmed_test_data",
+      "breakpoints": true
     }
   ]
 }
