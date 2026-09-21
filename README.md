@@ -32,9 +32,7 @@ Cloudflare Worker 已部署在 `https://mdbo-crf.ashersense-research.workers.dev
 
 `streamlit/app.py` 是同一研究系统的 Streamlit 入口，复用现有 Worker + D1 作为唯一云端数据和随机化后端，字段与访视从 `src/schema.js` / `src/workflow.js` 导出到 `streamlit/schema.json`。本地运行：`python -m pip install -r requirements.txt`，再执行 `python -m streamlit run streamlit/app.py`。未配置登录时只显示锁定提示，不能读写患者数据。
 
-Streamlit Community Cloud 从公开 GitHub 仓库部署时默认公开访问；必须在应用 Secrets 中配置 OIDC 登录和 `crf.allowed_emails` 白名单。若研究人员使用 GitHub 账号，登录链路为 GitHub OAuth → Auth0 GitHub Social Connection → Streamlit OIDC；GitHub OAuth 本身不是 OIDC，不能直接填到 `st.login()`。在 Auth0 建立 Regular Web Application，允许回调地址 `https://mdbo-crf-bb98txkdifxaky2fs6dskk.streamlit.app/oauth2callback`；在 GitHub OAuth App 中将回调地址设为 `https://<AUTH0_DOMAIN>/login/callback`，并在 Auth0 启用该 GitHub Connection。Auth0 免费方案可用于小团队，但 GitHub 登录只证明身份，能否访问患者库仍由本应用的白名单判断。
-
-所需 Streamlit Cloud Secrets 键为 `[auth]` 下的 `redirect_uri`（上述 Streamlit 回调地址）、`cookie_secret`、Auth0 Regular Web Application 的 `client_id`、`client_secret`、`server_metadata_url`（`https://<AUTH0_DOMAIN>/.well-known/openid-configuration`），以及 `[crf]` 下的 `backend_url`（`https://mdbo-crf.ashersense-research.workers.dev`）、`service_token`、`allowed_emails`（逗号分隔的已验证邮箱）。登录用户通过白名单后，Streamlit 服务端才带服务令牌访问 API；令牌不能公开或提交仓库。Worker 的 `STREAMLIT_SERVICE_TOKEN` 须通过 Wrangler Secret 设置为同一随机值。目前尚未配置 Auth0 和 Streamlit Cloud Secrets，因此线上页面仍锁定。正式临床使用仍需授权分工、备份和合规验收。
+Streamlit Community Cloud 从公开 GitHub 仓库部署时默认公开访问；必须在应用 Secrets 中配置 OIDC 登录和 `crf.allowed_emails` 白名单。所需键为 `[auth]` 下的 `redirect_uri`、`cookie_secret`、`client_id`、`client_secret`、`server_metadata_url`，以及 `[crf]` 下的 `backend_url`（`https://mdbo-crf.ashersense-research.workers.dev`）、`service_token`、`allowed_emails`（逗号分隔的已验证邮箱）。登录用户通过白名单后，Streamlit 服务端才带服务令牌访问 API；令牌不能公开或提交仓库。Worker 的 `STREAMLIT_SERVICE_TOKEN` 须通过 Wrangler Secret 设置为同一随机值。目前尚未配置 OIDC 和 Streamlit Cloud，因此没有可用的线上 Streamlit 地址。正式临床使用仍需授权分工、备份和合规验收。
 
 ## 当前边界
 
