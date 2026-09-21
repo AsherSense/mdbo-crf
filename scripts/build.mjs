@@ -6,7 +6,7 @@ let page=fs.readFileSync('src/index.html','utf8');
 page=page.replace('/* SCHEMA */',schema.replace(/export /g,''));
 page=page.replace('/* APP */',()=>['workflow.js','guidance.js','help.js','xlsx.js','xlsx-repair.js','xlsx-complete.js','app.js'].map(name=>fs.readFileSync('src/'+name,'utf8').replace(/export /g,'')).join('\n'));
 new vm.Script(page.match(/<script type="module">([\s\S]*?)<\/script>/)[1],{filename:'browser-inline.js'});
-let worker=fs.readFileSync('src/worker.js','utf8').replace(/^import .*\n/,'');
+let worker=fs.readFileSync('src/worker.js','utf8').replace(/^import .*\r?\n/,'');
 fs.writeFileSync('dist/server/index.js',schema.replace(/export /g,'')+'\nconst HTML='+JSON.stringify(page)+';\n'+worker);
 fs.writeFileSync('dist/index.html',page);
 fs.copyFileSync('.openai/hosting.json','dist/.openai/hosting.json');
