@@ -1,18 +1,7 @@
 import { MODULES,CENTERS,GROUPS,eligibility,validate,procedurePlan } from './schema.js';
 export function allocationPlan(previous,center,stratum,u){const count=(arm,filter=()=>true)=>previous.filter(r=>r.arm===arm&&filter(r)).length;const a=count('A'),b=count('B');if(a+b>=272)throw Error('已达到272例，停止随机化');const score=(arm)=>Math.abs(a+(arm==='A')-b-(arm==='B'))+Math.abs(count('A',r=>r.center===center)+(arm==='A')-count('B',r=>r.center===center)-(arm==='B'))+Math.abs(count('A',r=>r.stratum===stratum)+(arm==='A')-count('B',r=>r.stratum===stratum)-(arm==='B'));const scoreA=score('A'),scoreB=score('B'),probA=a>=136?0:b>=136?1:scoreA<scoreB?.8:scoreB<scoreA?.2:.5;return {arm:u<probA?'A':'B',scoreA,scoreB,probA,seq:a+b+1};}
 const json=(v,status=200)=>new Response(JSON.stringify(v),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
-async function authenticatedUser(req,url,ctx,env){
-  if(url.pathname.startsWith('/api/')&&env?.STREAMLIT_SERVICE_TOKEN){
-    const token=req.headers.get('Authorization')?.replace(/^Bearer /,'');
-    if(token){
-      const hash=async value=>new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value)));
-      const a=await hash(token),b=await hash(env.STREAMLIT_SERVICE_TOKEN);
-      if(a.every((byte,index)=>byte===b[index])){
-        const actor=req.headers.get('X-CRF-Actor');
-        return actor&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(actor)&&actor.length<=254?actor:null;
-      }
-    }
-  }
+async function authenticatedUser(req,url,ctx){
   if(ctx?.access){
     const identity=await ctx.access.getIdentity();
     return identity?.email||null;
@@ -23,7 +12,7 @@ async function authenticatedUser(req,url,ctx,env){
 const parseRow=r=>({...r,data:JSON.parse(r.data)});
 async function bundle(db,id){const patient=await db.prepare('SELECT * FROM patients WHERE id=?').bind(id).first();if(!patient)return null;const rows=await db.prepare('SELECT * FROM records WHERE patient=? ORDER BY module,slot').bind(id).all();const allocation=await db.prepare('SELECT patient,seq,arm,center,stratum,at,actor,operator FROM allocations WHERE patient=?').bind(id).first();const archived=await db.prepare('SELECT archived_at,actor FROM patient_archives WHERE patient=?').bind(id).first();return {patient,records:rows.results.map(parseRow),archived:archived||null,allocation:allocation?{...allocation,randomNo:'R'+String(allocation.seq).padStart(4,'0'),subjectNo:allocation.center+'-R'+String(allocation.seq).padStart(4,'0'),treatment:GROUPS[allocation.arm]}:null}}
 async function body(req){const raw=await req.text();if(raw.length>100000)throw Error('提交内容过长');return JSON.parse(raw)}
-export default {async fetch(req,env,ctx){try{const url=new URL(req.url);const actor=await authenticatedUser(req,url,ctx,env);if(!actor)return url.pathname.startsWith('/api/')?json({error:'请先通过 Cloudflare Access 登录后再访问'},401):new Response('Access required',{status:401,headers:{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'no-store'}});if(!url.pathname.startsWith('/api/'))return new Response(HTML,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin','Content-Security-Policy':"default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"}});if(!env.DB)return json({error:'数据库未连接，请勿关闭未保存页面'},503);const db=env.DB;
+export default {async fetch(req,env,ctx){try{const url=new URL(req.url);const actor=await authenticatedUser(req,url,ctx);if(!actor)return url.pathname.startsWith('/api/')?json({error:'请先通过 Cloudflare Access 登录后再访问'},401):new Response('Access required',{status:401,headers:{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'no-store'}});if(!url.pathname.startsWith('/api/'))return new Response(HTML,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin','Content-Security-Policy':"default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"}});if(!env.DB)return json({error:'数据库未连接，请勿关闭未保存页面'},503);const db=env.DB;
 if(req.method!=='GET'&&req.headers.get('Origin')!==url.origin)return json({error:'请求来源不匹配'},403);
 if(url.pathname==='/api/patients'&&req.method==='GET'){const p=await db.prepare('SELECT id,center,created FROM patients WHERE NOT EXISTS(SELECT 1 FROM patient_archives a WHERE a.patient=patients.id) ORDER BY created DESC').all();return json({patients:p.results,user:actor,storage:'服务器数据库'})}
 if(url.pathname==='/api/patients'&&req.method==='POST'){const b=await body(req);if(typeof b.id!=='string'||!/^[-A-Za-z0-9_]{1,64}$/.test(b.id)||!CENTERS[b.center])return json({error:'住院号限字母、数字、连字符和下划线，中心须从列表选择'},400);if(b.name&&String(b.name).length>80||b.phone&&String(b.phone).length>40)return json({error:'姓名或电话过长'},400);const exists=await bundle(db,b.id);if(exists)return json({error:'此住院号已存在，请选择该患者；跨中心重号需先核实，不会覆盖'},409);await db.prepare('INSERT INTO patients(id,center,created,actor,name,phone) VALUES(?,?,?,?,?,?)').bind(b.id,b.center,new Date().toISOString(),actor,String(b.name||'').trim(),String(b.phone||'').trim()).run();return json(await bundle(db,b.id))}

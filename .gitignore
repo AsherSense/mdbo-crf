@@ -7,5 +7,3 @@ node_modules/
 .wrangler/
 test-output/
 *.sqlite*
-.streamlit/secrets.toml
-streamlit/__pycache__/

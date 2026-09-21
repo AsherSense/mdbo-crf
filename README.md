@@ -28,12 +28,6 @@ Cloudflare Worker 已部署在 `https://mdbo-crf.ashersense-research.workers.dev
 
 不得在未启用 Access 的情况下录入任何患者信息。`drizzle/0005_purge_confirmed_test_data.sql` 会清空患者、记录、随机化及审计数据，仅适用于经确认的全新空库初始化；绝不可对已有正式数据的 D1 执行整套迁移。正式上线前还需由研究团队完成角色授权、备份恢复演练、数据处理协议和机构安全验收。
 
-## Streamlit 界面
-
-`streamlit/app.py` 是同一研究系统的 Streamlit 入口，复用现有 Worker + D1 作为唯一云端数据和随机化后端，字段与访视从 `src/schema.js` / `src/workflow.js` 导出到 `streamlit/schema.json`。本地运行：`python -m pip install -r requirements.txt`，再执行 `python -m streamlit run streamlit/app.py`。未配置登录时只显示锁定提示，不能读写患者数据。
-
-Streamlit Community Cloud 从公开 GitHub 仓库部署时默认公开访问；必须在应用 Secrets 中配置 OIDC 登录和 `crf.allowed_emails` 白名单。所需键为 `[auth]` 下的 `redirect_uri`、`cookie_secret`、`client_id`、`client_secret`、`server_metadata_url`，以及 `[crf]` 下的 `backend_url`（`https://mdbo-crf.ashersense-research.workers.dev`）、`service_token`、`allowed_emails`（逗号分隔的已验证邮箱）。登录用户通过白名单后，Streamlit 服务端才带服务令牌访问 API；令牌不能公开或提交仓库。Worker 的 `STREAMLIT_SERVICE_TOKEN` 须通过 Wrangler Secret 设置为同一随机值。目前尚未配置 OIDC 和 Streamlit Cloud，因此没有可用的线上 Streamlit 地址。正式临床使用仍需授权分工、备份和合规验收。
-
 ## 当前边界
 
 提供中央管理员单入口。尚无独立的多中心角色授权、盲态随访入口、签名式修订工作流、自动异地备份恢复演练。随机分组页的资格确认、分层及当时输入快照锁定；筛选和基线可后补录并保留审计，但不能改变已锁定分层或重新分组。分层确认的更正仍需后续受控修订流程。对正式研究的完整验证和机构验收，本项目测试报告不能替代。
